@@ -23,9 +23,9 @@ public class Shopping {
             int actionNumber = scanner.nextInt();
             if (actionNumber >= 1 && actionNumber <= 4){
                 switch (actionNumber){
-                    case 1 -> add(productCount, shoppingList, scanner);
-                    case 2 -> show(shoppingList);
-                    case 3 -> deleteMode(shoppingList, scanner);
+                    case 1 -> addProductsToShoppingList(productCount, shoppingList, scanner);
+                    case 2 -> showList(shoppingList);
+                    case 3 -> clearProductFromList(shoppingList, scanner);
                     case 4 ->
                         run = false;
                 }
@@ -33,10 +33,9 @@ public class Shopping {
                 System.out.println("Неизвестная команда!");
             }
         }
-
     }
 
-    public static void add(int productCount, String[] shoppingList, Scanner scanner){
+    public static void addProductsToShoppingList(int productCount, String[] shoppingList, Scanner scanner){
         for (int i = productCount; i < shoppingList.length; i++) {
             System.out.println("Добавьте товар: ");
             String product = scanner.next();
@@ -48,7 +47,7 @@ public class Shopping {
         }
     }
 
-    public static void show(String[] shoppingList) {
+    public static void showList(String[] shoppingList) {
         boolean isEmpty = true;
 
         for (int i = 0; i < shoppingList.length; i++) {
@@ -64,7 +63,7 @@ public class Shopping {
     }
 
 
-    public static void deleteMode(String[] array, Scanner scanner){
+    public static void clearProductFromList(String[] array, Scanner scanner){
         String a = "1. Удалить по индексу";
         String b = "2. Удалить по названию товара";
         String c = "3. Удалить все";
@@ -72,14 +71,14 @@ public class Shopping {
 
         System.out.printf("Выберите, как вы хотите удалить: \n%s \n%s \n%s \n%s\n", a, b, c, d);
 
-        int deleteModeCommand = scanner.nextInt();
+        int deleteCommand = scanner.nextInt();
         boolean run = true;
         while (run){
-            if (deleteModeCommand >= 1 && deleteModeCommand <= 4){
-                switch (deleteModeCommand){
-                    case 1 -> deleteByIndex(array, scanner);
-                    case 2 -> deleteByName(array, scanner);
-                    case 3 -> deleteAll(array, scanner);
+            if (deleteCommand >= 1 && deleteCommand <= 4){
+                switch (deleteCommand){
+                    case 1 -> deleteProductByIndex(array, scanner);
+                    case 2 -> deleteProductByName(array, scanner);
+                    case 3 -> deleteAllProduct(array, scanner);
                     case 4 ->
                         run = false;
                 }
@@ -89,62 +88,62 @@ public class Shopping {
         }
     }
 
-    public static void deleteByIndex(String[] array, Scanner scanner){
-        show(array);
+    public static void deleteProductByIndex(String[] array, Scanner scanner){
+        showList(array);
         System.out.println("Введите номер номер товара для удаления: ");
-        int deleteIndex = scanner.nextInt();
-        array[deleteIndex] = null;
-        System.out.println("Вы удалили товар под номером: " + deleteIndex);
+        int productIndex = scanner.nextInt();
+        array[productIndex] = null;
+        System.out.println("Вы удалили товар под номером: " + productIndex);
         System.out.println("В списке остались: ");
-        show(array);
+        showList(array);
     }
 
-    public static void deleteByName(String[] array, Scanner scanner){
-        show(array);
+    public static void deleteProductByName(String[] array, Scanner scanner){
+        showList(array);
         System.out.println("Введите название товара для удаления: ");
-        String deleteName = scanner.next();
+        String productName = scanner.next();
 
         boolean itemDeleted = false;
 
         for (int i = 0; i < array.length; i++) {
-            if (array[i] != null && array[i].equalsIgnoreCase(deleteName)) {
+            if (array[i] != null && array[i].equalsIgnoreCase(productName)) {
                 array[i] = null;
-                System.out.println("Вы удалили товар под именем: " + deleteName);
+                System.out.println("Вы удалили товар под именем: " + productName);
                 itemDeleted = true;
                 break;
             }
         }
 
         if (!itemDeleted) {
-            System.out.println("Товар с именем '" + deleteName + "' не найден.");
+            System.out.println("Товар с именем '" + productName + "' не найден.");
         }
 
         System.out.println("В списке остались: ");
-        show(array);
+        showList(array);
     }
 
-    public static void deleteAll(String[] array, Scanner scanner){
-        show(array);
+    public static void deleteAllProduct(String[] array, Scanner scanner){
+        showList(array);
         System.out.println("Введите название товара для удаления: ");
-        String deleteName = scanner.next();
+        String productName = scanner.next();
 
         boolean itemDeleted = false;
 
         for (int i = 0; i < array.length; i++) {
-            if (array[i] != null && array[i].equalsIgnoreCase(deleteName)) {
+            if (array[i] != null && array[i].equalsIgnoreCase(productName)) {
                 array[i] = null;
-                System.out.println("Вы удалили товар под именем: " + deleteName);
+                System.out.println("Вы удалили товар под именем: " + productName);
                 itemDeleted = true;
                 break;
             }
         }
 
         if (!itemDeleted) {
-            System.out.println("Товар с именем '" + deleteName + "' не найден.");
+            System.out.println("Товар с именем '" + productName + "' не найден.");
         }
 
         System.out.println("В списке остались: ");
-        show(array);
+        showList(array);
     }
 }
 
